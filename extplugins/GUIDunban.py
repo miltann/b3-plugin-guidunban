@@ -31,7 +31,7 @@ class GuidunbanPlugin(b3.plugin.Plugin):
         else:
             self.debug("Plugin successfully loaded")
 
-        self._adminPlugin.registerCommand(self, 'guidunban', 70, self.cmd_guidunban, 'gub') #lookup high councillor power level
+        self._adminPlugin.registerCommand(self, 'guidunban', 70, self.cmd_guidunban, 'gub') 
         self.debug("Command registered in admin plugin")
 
     def stripColors(self, s):
