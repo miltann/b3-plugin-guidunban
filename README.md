@@ -4,14 +4,14 @@ Removes ban entry from TeknoMW3's PermanentBan.txt file. (!guidunban/!gub @ID)
 -----------
 Installation
 
-- Replace "file" in line 22 of guidunban.py with your full filepath to your PermanentBans.txt file.
-- The command only works above level of 70, you can change this in line 34.
+- The command only works above level of 70, you can change this in the code.
 - Add the following line to your b3 configuration file (b3.xml):
-
 `
-<plugin name="GUIDunban"/>
+<plugin name="guidunban" config="@b3/extplugins/conf/guidunban.xml"/>
 `
 
 ------
 TODO:
-- add plugin config file
+- add minimum level to config file
+
+(Discord: WatchMiltan#7505)
