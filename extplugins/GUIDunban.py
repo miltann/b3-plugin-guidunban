@@ -21,14 +21,19 @@
 #                                                                     #
 # ################################################################### #
 #
-#  CHANGELOG:
+# PLEASE RESTART MAP AFTER PLUGIN IS LOADED!
+#
+#  LOG:
 #  25.05.2018 - v1.0 - WatchMiltan
 #  - first release.
 #  05.06.2018 - v1.1 - WatchMiltan
 #  - bugfix
+#  24.06.2018 - v1.2 - WatchMiltan
+#  - added multigame support
+#  - retrieving data from config
 #
 
-__version__ = '1.1gh'
+__version__ = '1.2gh'
 __author__  = 'WatchMiltan'
 
 #b3 libaries
@@ -41,10 +46,7 @@ import fileinput
 import sys
 import re
 
-file = "C:\Games\CallofDutyModernWarfare3\BanDB\Permanent_GUID.ban"
-
 class GuidunbanPlugin(b3.plugin.Plugin):
-    requiresConfigFile = False
 
     def onStartup(self):
         self._adminPlugin = self.console.getPlugin('admin')
@@ -54,7 +56,25 @@ class GuidunbanPlugin(b3.plugin.Plugin):
         else:
             self.debug("Plugin successfully loaded")
 
-        self._adminPlugin.registerCommand(self, 'guidunban', 70, self.cmd_guidunban, 'gub') 
+        self._adminPlugin.registerCommand(self, 'guidunban', 70, self.cmd_guidunban, 'gub')
+        self.debug("Command registered in admin plugin")
+
+
+class GuidunbanPlugin(b3.plugin.Plugin):
+
+    def onLoadConfig(self):
+        self.file = str(self.config.get('settings', 'filepath'))
+        return
+    
+    def onStartup(self):
+        self._adminPlugin = self.console.getPlugin('admin')
+        if not self._adminPlugin:
+            self.debug("Admin Plugin not found!")
+            return False
+        else:
+            self.debug("Plugin successfully loaded")
+
+        self._adminPlugin.registerCommand(self, 'guidunban', 70, self.cmd_guidunban, 'gub') # change "70" to desired power level
         self.debug("Command registered in admin plugin")
 
     def stripColors(self, s):
@@ -73,19 +93,24 @@ class GuidunbanPlugin(b3.plugin.Plugin):
             searchExp = getattr(sclient, "guid")
             ip = getattr(sclient, "ip")
             replaceExp = ''
-
-            f = open(file, 'r')
-            if str(searchExp) not in f.read():
-                client.message('No GUID-Ban found.')
-                f.close()
-            else:
-                f.close()
-                for line in fileinput.input(file, inplace=True):
-                    if searchExp in line:
-                        line = re.sub(searchExp+'.+',replaceExp, line)
-                        client.message('GUID-Ban ^2lifted!')
-                        self.debug(cid +" GUID unbanned by " + unbanner)
-                    sys.stdout.write(line)
-                for line in fileinput.input(file, inplace=1):
-                    if line.rstrip():
-                        sys.stdout.write(line)
+                             
+            if "cod8" in game.lower():
+                try:
+                    f = open(self.file, 'r')
+                    if str(searchExp) not in f.read():
+                        client.message('No GUID-Ban found.')
+                        f.close()
+                    else:
+                        f.close()
+                        for line in fileinput.input(self.file, inplace=True):
+                            if searchExp in line:
+                                line = re.sub(searchExp+'.+',replaceExp, line)
+                                client.message('GUID-Ban ^2lifted!')
+                                self.debug(cid +" GUID unbanned by " + unbanner)
+                            sys.stdout.write(line)
+                        for line in fileinput.input(self.file, inplace=1):
+                            if line.rstrip():
+                                sys.stdout.write(line)
+                except:
+                    client.message('^7MW3-GUID Unban ^1failed.')
+                    #troubleshooting: correct filepath? is file being accessed?
