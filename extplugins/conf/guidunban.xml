@@ -1,0 +1,5 @@
+<configuration plugin="guidunban">
+	<settings name="settings">
+        <set name="filepath">FILEPATH TO PERMANENT_BANS.TXT FILE HERE</set>
+	</settings>
+</configuration>
