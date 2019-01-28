@@ -21,6 +21,8 @@
 #                                                                     #
 # ################################################################### #
 #
+# NOTE: There is a working parser for b3, rendering this plugin useless.
+#
 # PLEASE RESTART MAP AFTER PLUGIN IS LOADED!
 #
 #  LOG:
@@ -31,6 +33,8 @@
 #  24.06.2018 - v1.2 - WatchMiltan
 #  - added multigame support
 #  - retrieving data from config
+#  28.01.2019 - v1.3 - WatchMiltan
+#  - bugfix
 #
 
 __version__ = '1.2gh'
@@ -45,20 +49,6 @@ from b3.clients import Client, Group
 import fileinput
 import sys
 import re
-
-class GuidunbanPlugin(b3.plugin.Plugin):
-
-    def onStartup(self):
-        self._adminPlugin = self.console.getPlugin('admin')
-        if not self._adminPlugin:
-            self.debug("Admin Plugin not found!")
-            return False
-        else:
-            self.debug("Plugin successfully loaded")
-
-        self._adminPlugin.registerCommand(self, 'guidunban', 70, self.cmd_guidunban, 'gub')
-        self.debug("Command registered in admin plugin")
-
 
 class GuidunbanPlugin(b3.plugin.Plugin):
 
