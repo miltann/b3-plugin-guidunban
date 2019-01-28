@@ -1,4 +1,4 @@
-<configuration plugin="guidunban">
+<configuration plugin="GUIDunban">
 	<settings name="settings">
         <set name="filepath">FILEPATH TO PERMANENT_BANS.TXT FILE HERE</set>
 	</settings>
