@@ -1,4 +1,7 @@
 # b3-plugin-guidunban
+
+## NOTE: There is a working b3 parser for cod8, rendering this plugin useless. Hence there won't be any further updates on this plugin. 
+
 Removes ban entry from TeknoMW3's PermanentBan.txt file. (!guidunban/!gub @ID)
 
 -----------
@@ -15,4 +18,3 @@ Installation
 TODO:
 - add minimum level to config file
 
-(Discord: WatchMiltan#7505)
